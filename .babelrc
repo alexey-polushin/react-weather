@@ -12,10 +12,7 @@
   "env": {
     "development": {
       "plugins": [
-        "transform-es2015-modules-commonjs",
-        ["styled-components", {
-          "minify": false
-        }]
+        "transform-es2015-modules-commonjs"
       ]
     },
     "test": {
@@ -25,10 +22,7 @@
     },
     "production": {
       "plugins": [
-        "transform-react-remove-prop-types",
-        ["styled-components", {
-          "displayName": false
-        }]
+        "transform-react-remove-prop-types"
       ]
     }
   }

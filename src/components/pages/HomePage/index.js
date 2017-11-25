@@ -1,9 +1,10 @@
-// https://github.com/diegohaz/arc/wiki/Atomic-Design
 import React from 'react'
+
+import styles from './index.scss'
 
 const HomePage = () => {
   return (
-    <div>Hello World</div>
+    <div className={styles.message}>Hello World</div>
   )
 }
 
