@@ -11,6 +11,8 @@ import configureStore from 'store/configure'
 import api from 'services/api'
 import App from 'components/App'
 
+import 'loader.scss'
+
 const store = configureStore({}, { api: api.create() })
 
 const renderApp = () => (

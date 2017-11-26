@@ -16,6 +16,7 @@ const sourceDir = process.env.SOURCE || 'src'
 const publicPath = `/${process.env.PUBLIC_PATH || ''}/`.replace('//', '/')
 const sourcePath = path.join(process.cwd(), sourceDir)
 const outputPath = path.join(process.cwd(), 'dist')
+const globImporter = require('node-sass-glob-importer')
 
 const babel = () => () => ({
   module: {
@@ -33,9 +34,18 @@ const assets = () => () => ({
         test: /\.scss$/,
         use: [
           {
+            loader: 'style-loader',
+          }, {
             loader: 'css-loader',
           }, {
             loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+              outputStyle: 'expanded',
+              indentType: 'spaces',
+              indentWidth: 1,
+              importer: globImporter(),
+            },
           },
         ],
       },
