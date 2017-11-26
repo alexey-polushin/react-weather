@@ -6,12 +6,15 @@ const config = {
     isDev: process.env.NODE_ENV !== 'production',
     basename: process.env.PUBLIC_PATH,
     isBrowser: typeof window !== 'undefined',
-    apiUrl: 'https://jsonplaceholder.typicode.com',
+    apis: {
+      apiUrl: 'http://opogode.ru/api/v1',
+      format: 'json',
+      searchLimit: 20,
+    },
   },
   test: {},
   development: {},
   production: {
-    apiUrl: 'https://jsonplaceholder.typicode.com',
   },
 }
 

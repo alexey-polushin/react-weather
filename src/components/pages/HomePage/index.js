@@ -1,10 +1,12 @@
 import React from 'react'
 
-import styles from './index.scss'
+import { SearchForm } from 'containers'
 
 const HomePage = () => {
   return (
-    <div className={styles.message}>Hello World</div>
+    <div className="container">
+      <SearchForm />
+    </div>
   )
 }
 
