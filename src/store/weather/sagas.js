@@ -41,9 +41,17 @@ export function* watchtWeatherRequest() {
   }
 }
 
+export function* watchtAddCityRequest() {
+  while (true) {
+    const action = yield take(actions.getWeatherRequest)
+    return action
+  }
+}
+
 export default function* () {
   yield [
     fork(watchSearchCityRequest),
     fork(watchtWeatherRequest),
+    fork(watchtAddCityRequest),
   ]
 }

@@ -8,14 +8,14 @@ import {
   Button,
 } from 'components'
 
-const CitySticker = ({ cityInfo }) => {
-  const temperature = idx(cityInfo, _ => _.weather.temperature);
+const CitySticker = ({ cityInfo, onClick, cityKye }) => {
+  const temperature = idx(cityInfo, _ => _.weather.temperature)
 
   const content = cityInfo.fetch ?
     <Loader /> :
     (
       <Block className="sticker-info">
-        <Button className="close">X</Button>
+        <Button className="close" onClick={() => onClick(cityKye)}>X</Button>
         <Block className="city-name">{idx(cityInfo, _ => _.city.name_ru)}</Block>
         <Block className="temperature">{`${temperature > 0 ? '+' : ''}${temperature}°С`}</Block>
         <Block className="additional-info">
@@ -34,6 +34,8 @@ const CitySticker = ({ cityInfo }) => {
 
 CitySticker.propTypes = {
   cityInfo: PropTypes.object,
+  cityKye: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
 }
 
 export default CitySticker

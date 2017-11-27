@@ -1,12 +1,14 @@
 import { handleActions, combineActions } from 'redux-actions'
 import { combineReducers } from 'redux'
 import uniq from 'lodash/uniq'
+import without from 'lodash/without'
 
 import {
   searchCityRequest,
   searchCitySuccess,
   searchCityFailure,
   addCity,
+  removeCity,
   getWeatherRequest,
   getWeatherSuccess,
   getWeatherFailure,
@@ -25,6 +27,12 @@ const cities = handleActions({
 
     return preparedCities
   },
+  [removeCity]: (state, action) => {
+    const preparedCities = without(state, action.payload)
+    localStorage.setItem('cities', preparedCities)
+
+    return preparedCities
+  },
 }, localCities ? localCities.split(',') : [])
 
 const weather = handleActions({
@@ -35,6 +43,12 @@ const weather = handleActions({
       return true
     }) : preparedData[action.payload] = { fetch: true }
     return ({ ...preparedData })
+  },
+  [removeCity]: (state, action) => {
+    const cities = state
+    delete cities[action.payload]
+
+    return cities
   },
   [getWeatherFailure]: (state, action) => ({ ...state, [action.payload]: { fetch: false } }),
   [getWeatherSuccess]: (state, action) => ({ ...state, [action.payload.payload]: { ...action.payload.data, fetch: false } }),
