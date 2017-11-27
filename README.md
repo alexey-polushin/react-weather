@@ -9,7 +9,7 @@
 ### Работоспособность
 	<b>Существует проблема с заголовками,
   для правильно работы на локальном сервере установить и активировать плагин</b>
-  [`Allow-Control-Allow-Origin: *`](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi)
+- [`Allow-Control-Allow-Origin: *`](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi)
 	
 ### Проблемы текущего апи
 - Нет поиска по id из автокомплита
