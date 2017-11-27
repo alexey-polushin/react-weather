@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { searchCityRequest } from 'store/actions'
+import { searchCityRequest, addCity } from 'store/actions'
 import { fromWeather } from 'store/selectors'
 
 import { SearchForm } from 'components'
@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onChange: data => console.log('onChange', data),
+  addCity: data => dispatch(addCity(data)),
   onInputChange: data => data && dispatch(searchCityRequest(data)),
 })
 

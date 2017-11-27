@@ -18,4 +18,12 @@ facade.searchCity = queryString => facade.request({
   },
 })
 
+facade.getWeather = cityName => facade.request({
+  url: `/current.${apis.format}`,
+  method: 'get',
+  params: {
+    city: cityName,
+  },
+})
+
 export default facade

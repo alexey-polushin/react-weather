@@ -1,4 +1,4 @@
-import { take, put, call, fork } from 'redux-saga/effects'
+import { take, put, call, fork, all } from 'redux-saga/effects'
 import api from 'services/weather'
 import * as actions from './actions'
 
@@ -14,6 +14,19 @@ export function* searchCity({ payload }) {
   }
 }
 
+export function* getWeather({ payload }) {
+  try {
+    yield put(actions.getWeatherRequest(payload))
+    const { data } = yield call(
+      api.getWeather,
+      payload,
+    )
+    yield put(actions.getWeatherSuccess({ payload, data }))
+  } catch (e) {
+    yield put(actions.getWeatherFailure(payload))
+  }
+}
+
 export function* watchSearchCityRequest() {
   while (true) {
     const action = yield take(actions.searchCityRequest)
@@ -21,6 +34,16 @@ export function* watchSearchCityRequest() {
   }
 }
 
+export function* watchtWeatherRequest() {
+  while (true) {
+    const action = yield take(actions.getWeatherRequest)
+    yield all(action.payload.map(item => call(getWeather, { type: action.type, payload: item })))
+  }
+}
+
 export default function* () {
-  yield fork(watchSearchCityRequest)
+  yield [
+    fork(watchSearchCityRequest),
+    fork(watchtWeatherRequest),
+  ]
 }
