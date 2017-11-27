@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Select from 'react-select'
+import { Row, Col } from 'react-flexbox-grid'
 import idx from 'idx'
 
 import {
-  Block,
   Button,
 } from 'components'
 
@@ -38,22 +38,26 @@ class SearchForm extends Component {
     const { onClick } = this
 
     return (
-      <Block>
-        <Select
-          {...{ onInputChange }}
-          onChange={this.setCity}
-          value={selectedValue}
-          valueKey="id"
-          labelKey="name_ru"
-          options={foundValues}
-          searchable
-          noResultsText="Ничего не найдено"
-          name="city-search"
-          className="search-form"
-          placeholder="Поиск города"
-        />
-        <Button disabled={!Boolean(selectedValue)} {...{ onClick }}>+</Button>
-      </Block>
+      <Row className="search-bar">
+        <Col xs={6}>
+          <Select
+            {...{ onInputChange }}
+            onChange={this.setCity}
+            value={selectedValue}
+            valueKey="id"
+            labelKey="name_ru"
+            options={foundValues}
+            searchable
+            noResultsText="Ничего не найдено"
+            name="city-search"
+            className="search-form"
+            placeholder="Поиск города"
+          />
+        </Col>
+        <Col xs={2}>
+          <Button className="add-city" disabled={!Boolean(selectedValue)} {...{ onClick }}>+</Button>
+        </Col>
+      </Row>
     )
   }
 }

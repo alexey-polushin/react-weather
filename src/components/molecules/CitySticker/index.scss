@@ -1,0 +1,43 @@
+.sticker-block {
+  display: flex;
+  width: 200px;
+  height: 200px;
+  border: 1px solid #cccccc;
+  margin: 20px;
+  padding: 10px;
+
+  .sticker-info {
+    width: 100%;
+    position: relative;
+
+    .close {
+      position: absolute;
+      right: 0px;
+      background-color: #ffffff;
+      border: 0;
+      font-size: 20px;
+      color: #cccccc;
+      cursor: pointer;
+    }
+
+    .city-name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .temperature {
+      width: 100%;
+      text-align: center;
+      margin: 50px 0;
+      font-size: 30px;
+    }
+
+
+
+    .additional-info {
+      position: absolute;
+      bottom: 0px;
+      font-size: 12px;
+    }
+  }
+}
