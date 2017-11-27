@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import difference from 'lodash/difference'
+import idx from 'idx'
 
 import { getWeatherRequest, removeCity } from 'store/actions'
 
@@ -10,12 +11,6 @@ import { fromWeather } from 'store/selectors'
 import { CitySticker } from 'components'
 
 class CitiesContainer extends Component {
-  constructor() {
-    super()
-
-    this.onClick = this.onClick.bind(this)
-  }
-
   componentDidMount() {
     const { cities, getWeather } = this.props
     getWeather(cities)
@@ -29,15 +24,11 @@ class CitiesContainer extends Component {
     }
   }
 
-  onClick(cityKye) {
-    this.props.removeItem(cityKye)
-  }
-
   render() {
-    const { loadedCities } = this.props
-    const { onClick } = this
+    const { loadedCities, removeItem, minTemperature } = this.props
     const cityStickers = Object.keys(loadedCities).map((cityKye, key) =>
-      <CitySticker cityInfo={loadedCities[cityKye]} {...{ key, onClick, cityKye }} />)
+      idx(loadedCities[cityKye], _ => _.weather.temperature) > minTemperature &&
+      <CitySticker cityInfo={loadedCities[cityKye]} onClick={removeItem} {...{ key, cityKye }} />)
 
     return cityStickers
   }
@@ -48,11 +39,13 @@ CitiesContainer.propTypes = {
   loadedCities: PropTypes.object,
   getWeather: PropTypes.func.isRequired,
   removeItem: PropTypes.func.isRequired,
+  minTemperature: PropTypes.number.isRequired,
 }
 
 const mapStateToProps = state => ({
   cities: fromWeather.getCitiesIds(state),
   loadedCities: fromWeather.getWeather(state),
+  minTemperature: fromWeather.getMinTemperature(state),
 })
 
 const mapDispatchToProps = dispatch => ({

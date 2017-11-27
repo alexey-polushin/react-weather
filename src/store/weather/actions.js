@@ -10,3 +10,5 @@ export const removeCity = createAction('REMOVE_CITY')
 export const getWeatherRequest = createAction('GET_WEATHER_REQUEST')
 export const getWeatherSuccess = createAction('GET_WEATHER_SUCCESS')
 export const getWeatherFailure = createAction('GET_WEATHER_FAILURE')
+
+export const setMinTemperature = createAction('SET_MIN_TEMPERATURE')

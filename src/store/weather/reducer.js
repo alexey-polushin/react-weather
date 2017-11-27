@@ -12,6 +12,7 @@ import {
   getWeatherRequest,
   getWeatherSuccess,
   getWeatherFailure,
+  setMinTemperature,
 } from './actions'
 
 const localCities = localStorage.getItem('cities') || null
@@ -59,10 +60,15 @@ const fetching = handleActions({
   [combineActions(searchCitySuccess, searchCityFailure)]: state => ({ ...state, search: false }),
 }, { search: false })
 
+const minTemperature = handleActions({
+  [setMinTemperature]: (state, action) => action.payload,
+}, 0)
+
 const search = combineReducers({
   searchResult,
   cities,
   weather,
+  minTemperature,
   fetching,
 })
 

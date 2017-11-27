@@ -3,39 +3,49 @@ import PropTypes from 'prop-types'
 import Select from 'react-select'
 import { Row, Col } from 'react-flexbox-grid'
 import idx from 'idx'
+import Slider from 'rc-slider'
 
 import {
   Button,
+  Block,
 } from 'components'
 
 class SearchForm extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      selectedValue: null,
+      selectedCity: null,
+      minTemperature: props.minTemperature,
     }
 
     this.setCity = this.setCity.bind(this)
     this.onClick = this.onClick.bind(this)
+    this.displayTemperatureFilter = this.displayTemperatureFilter.bind(this)
   }
 
   onClick() {
-    this.props.addCity(idx(this.state, _ => _.selectedValue.name_en))
+    this.props.addCity(idx(this.state, _ => _.selectedCity.name_en))
     this.setState({
-      selectedValue: null,
+      selectedCity: null,
     })
   }
 
   setCity(item) {
     this.setState({
-      selectedValue: item,
+      selectedCity: item,
+    })
+  }
+
+  displayTemperatureFilter(value) {
+    this.setState({
+      minTemperature: value > 0 ? `+${value}` : value,
     })
   }
 
   render() {
-    const { selectedValue } = this.state
-    const { onInputChange, foundValues } = this.props
-    const { onClick } = this
+    const { selectedCity, minTemperature } = this.state
+    const { onInputChange, foundValues, setMinTemperature } = this.props
+    const { onClick, displayTemperatureFilter } = this
 
     return (
       <Row className="search-bar">
@@ -43,7 +53,7 @@ class SearchForm extends Component {
           <Select
             {...{ onInputChange }}
             onChange={this.setCity}
-            value={selectedValue}
+            value={selectedCity}
             valueKey="id"
             labelKey="name_ru"
             options={foundValues}
@@ -55,7 +65,18 @@ class SearchForm extends Component {
           />
         </Col>
         <Col xs={2}>
-          <Button className="add-city" disabled={!Boolean(selectedValue)} {...{ onClick }}>+</Button>
+          <Button className="add-city" disabled={!Boolean(selectedCity)} {...{ onClick }}>+</Button>
+        </Col>
+        <Col sm={4} xs={12}>
+          <Block className="slider-title">Где сейчас теплее, чем</Block>
+          <Slider
+            min={-30}
+            max={30}
+            defaultValue={0}
+            onChange={displayTemperatureFilter}
+            onAfterChange={setMinTemperature}
+          />
+          <Block className="slider-value">{minTemperature}°С</Block>
         </Col>
       </Row>
     )
@@ -65,6 +86,8 @@ class SearchForm extends Component {
 SearchForm.propTypes = {
   addCity: PropTypes.func.isRequired,
   onInputChange: PropTypes.func.isRequired,
+  setMinTemperature: PropTypes.func.isRequired,
+  minTemperature: PropTypes.number,
   foundValues: PropTypes.array,
 }
 
