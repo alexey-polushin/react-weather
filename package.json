@@ -2,10 +2,15 @@
   "name": "arc",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://alexey-polushin.github.io/react-weather/",
   "scripts": {
     "start": "npm run dev",
     "dev": "npm run env:dev -- webpack-dev-server",
-    "env:dev": "cross-env NODE_ENV=development"
+    "build": "npm run env:prod -- webpack",
+    "env:dev": "cross-env NODE_ENV=development",
+    "env:prod": "cross-env NODE_ENV=production",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "jest": {
     "moduleDirectories": [

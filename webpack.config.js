@@ -13,9 +13,9 @@ const {
 const host = process.env.HOST || 'localhost'
 const port = process.env.PORT || 3000
 const sourceDir = process.env.SOURCE || 'src'
-const publicPath = `/${process.env.PUBLIC_PATH || ''}/`.replace('//', '/')
+const publicPath = `/${process.env.PUBLIC_PATH || ''}/react-weather/`.replace('//', '/')
 const sourcePath = path.join(process.cwd(), sourceDir)
-const outputPath = path.join(process.cwd(), 'dist')
+const outputPath = path.join(process.cwd(), 'build')
 const globImporter = require('node-sass-glob-importer')
 
 const babel = () => () => ({
