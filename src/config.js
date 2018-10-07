@@ -7,9 +7,9 @@ const config = {
     basename: process.env.PUBLIC_PATH,
     isBrowser: typeof window !== 'undefined',
     apis: {
-      apiUrl: 'http://opogode.ru/api/v1',
-      format: 'json',
-      searchLimit: 20,
+      accuweatherApi: 'http://dataservice.accuweather.com',
+      version: 'v1',
+      apiKey: 'd3rVmuirgvrN8GJXtPwQjMpA0Gpxa9jy',
     },
   },
   test: {},

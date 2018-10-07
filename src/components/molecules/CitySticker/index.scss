@@ -26,10 +26,13 @@
     }
 
     .temperature {
+      display: flex;
       width: 100%;
       text-align: center;
-      margin: 50px 0;
+      margin: 60px 0;
       font-size: 30px;
+      justify-content: center;
+      align-items: center;
     }
 
 

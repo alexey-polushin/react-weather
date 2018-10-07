@@ -13,29 +13,41 @@ import { CitySticker } from 'components'
 class CitiesContainer extends Component {
   componentDidMount() {
     const { cities, getWeather } = this.props
-    getWeather(cities)
+    Object.keys(cities).length && getWeather(cities)
   }
 
   componentWillReceiveProps(nextProps) {
     const { cities, getWeather } = this.props
-    const diff = difference(nextProps.cities, cities)
+    const getKeys = obj => Object.keys(obj)
+    const diff = difference(getKeys(nextProps.cities), getKeys(cities))
+
     if (diff.length) {
-      getWeather(diff)
+      getWeather(Object.assign({}, ...diff.map(id => ({ [id]: nextProps.cities[id] }))))
     }
   }
 
   render() {
-    const { loadedCities, removeItem, minTemperature } = this.props
+    const {
+      loadedCities,
+      cities,
+      removeItem,
+      minTemperature,
+    } = this.props
     const cityStickers = Object.keys(loadedCities).map((cityKye, key) =>
-      idx(loadedCities[cityKye], _ => _.weather.temperature) > minTemperature &&
-      <CitySticker cityInfo={loadedCities[cityKye]} onClick={removeItem} {...{ key, cityKye }} />)
+      idx(loadedCities[cityKye], _ => _.Temperature.Maximum.Value) > minTemperature &&
+      <CitySticker
+        cityName={cities[cityKye]}
+        forecast={loadedCities[cityKye]}
+        onClick={removeItem}
+        {...{ key, cityKye }}
+      />)
 
     return cityStickers
   }
 }
 
 CitiesContainer.propTypes = {
-  cities: PropTypes.array,
+  cities: PropTypes.object,
   loadedCities: PropTypes.object,
   getWeather: PropTypes.func.isRequired,
   removeItem: PropTypes.func.isRequired,

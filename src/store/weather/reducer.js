@@ -1,7 +1,5 @@
 import { handleActions, combineActions } from 'redux-actions'
 import { combineReducers } from 'redux'
-import uniq from 'lodash/uniq'
-import without from 'lodash/without'
 
 import {
   searchCityRequest,
@@ -23,36 +21,45 @@ const searchResult = handleActions({
 
 const cities = handleActions({
   [addCity]: (state, action) => {
-    const preparedCities = uniq([...state, action.payload])
-    localStorage.setItem('cities', preparedCities)
+    const preparedCitiesArray = {
+      ...state,
+      [action.payload.Key]: action.payload.LocalizedName,
+    }
 
-    return preparedCities
+    localStorage.setItem('cities', JSON.stringify(preparedCitiesArray))
+
+    return { ...state, [action.payload.Key]: action.payload.LocalizedName }
   },
   [removeCity]: (state, action) => {
-    const preparedCities = without(state, action.payload)
-    localStorage.setItem('cities', preparedCities)
+    const cities = { ...state }
+    delete cities[action.payload]
 
-    return preparedCities
+    localStorage.setItem('cities', JSON.stringify(cities))
+
+    return cities
   },
-}, localCities ? localCities.split(',') : [])
+}, localCities
+  ? JSON.parse(localCities)
+  : {})
 
 const weather = handleActions({
   [getWeatherRequest]: (state, action) => {
     const preparedData = state
-    Array.isArray(action.payload) ? action.payload.map((item) => {
+
+    typeof action.payload === 'object' ? Object.keys(action.payload).map((item) => {
       preparedData[item] = { fetch: true }
       return true
     }) : preparedData[action.payload] = { fetch: true }
     return ({ ...preparedData })
   },
   [removeCity]: (state, action) => {
-    const cities = state
+    const cities = { ...state }
     delete cities[action.payload]
 
     return cities
   },
   [getWeatherFailure]: (state, action) => ({ ...state, [action.payload]: { fetch: false } }),
-  [getWeatherSuccess]: (state, action) => ({ ...state, [action.payload.payload]: { ...action.payload.data, fetch: false } }),
+  [getWeatherSuccess]: (state, action) => ({ ...state, [action.payload.cityKey]: { ...action.payload.data, fetch: false } }),
 }, {})
 
 const fetching = handleActions({

@@ -24,7 +24,7 @@ class SearchForm extends Component {
   }
 
   onClick() {
-    this.props.addCity(idx(this.state, _ => _.selectedCity.name_en))
+    this.props.addCity(idx(this.state, _ => _.selectedCity))
     this.setState({
       selectedCity: null,
     })
@@ -54,8 +54,8 @@ class SearchForm extends Component {
             {...{ onInputChange }}
             onChange={this.setCity}
             value={selectedCity}
-            valueKey="id"
-            labelKey="name_ru"
+            valueKey="Key"
+            labelKey="LocalizedName"
             options={foundValues}
             searchable
             noResultsText="Ничего не найдено"
