@@ -7,7 +7,7 @@ const config = {
     basename: process.env.PUBLIC_PATH,
     isBrowser: typeof window !== 'undefined',
     apis: {
-      accuweatherApi: 'http://dataservice.accuweather.com',
+      accuweatherApi: 'https://cors-anywhere.herokuapp.com/http://dataservice.accuweather.com',
       version: 'v1',
       apiKey: 'd3rVmuirgvrN8GJXtPwQjMpA0Gpxa9jy',
     },
