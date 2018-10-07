@@ -1,17 +1,23 @@
-## React Weather
+# React Weather
+Тестовое задание одной из компаний.
+Из исходных данных только скрин
 
-### [`Atomic React kit`](https://github.com/diegohaz/arc)
-  За основу взят текущий кит, немного поправил Actions для более удобного использования, добавил axios.
+![N|Solid](https://raw.githubusercontent.com/alexey-polushin/react-weather/master/images/7g0wyYKQ.png)
 
-### [`Api`](http://opogode.ru/api-v1)
+### `Atomic Design`
+  За основу взята методология Atomic Design, так как для мелких проектов имеет место быть.
+
+### [`Api`](https://developer.accuweather.com)
 	Использован автокомплит и поиск погоды	по городу
 
-### Работоспособность
-	Существует проблема с заголовками
-  Для правильно работы на локальном сервере установить и активировать плагин
-- [`Allow-Control-Allow-Origin: *`](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi)
-	
-### Проблемы текущего апи
-- Нет поиска по id из автокомплита
-- Запрос принимает только один город
-- Не актуальные данные
+### `Stack`
+  - React + Redux
+  - axios
+  - saga-thunk
+  - saas-loader
+  - localStorage
+
+#### [`Github pages`](https://alexey-polushin.github.io/react-weather/) deploy
+
+### `Trouble`
+Ограничение у API - 50 запросов в день
